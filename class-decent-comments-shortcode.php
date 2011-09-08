@@ -19,8 +19,6 @@
  * @since decent-comments 1.0.0
  */
 
-add_shortcode( 'decent-comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
-
 /**
  * Decent Comments shortcode handler.
  */
@@ -38,4 +36,6 @@ class Decent_Comments_Shortcode {
 	}
 	
 } // class Decent_Comments_Shortcode
+
+add_shortcode( 'decent-comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
 ?>

@@ -19,8 +19,6 @@
  * @since decent-comments 1.0.0
  */
 
-Decent_Comments_Renderer::init();
-
 /**
  * Comment Renderer.
  */
@@ -265,4 +263,6 @@ class Decent_Comments_Renderer {
 		return $output;
 	}
 } // class Decent_Comments_Renderer
+
+Decent_Comments_Renderer::init();
 ?>

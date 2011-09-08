@@ -20,9 +20,6 @@
  * @link http://codex.wordpress.org/Widgets_API#Developing_Widgets
  */
 
-Decent_Comments_Widget::init();
-register_widget( 'Decent_Comments_Widget' );
-
 /**
  * Versatile comments widget.
  */
@@ -344,4 +341,7 @@ class Decent_Comments_Widget extends WP_Widget {
 		// @todo render widget if no comments? option 
 	}
 }// class Decent_Comments_Widget
+
+Decent_Comments_Widget::init();
+register_widget( 'Decent_Comments_Widget' );
 ?>

@@ -4,7 +4,7 @@ Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
 Tested up to: 3.2.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 Decent Comments shows what people say. Provides widgets, shortcodes and API to display comments including author avatars, links, comment excerpts.
 
@@ -95,10 +95,16 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed to avoid class not found issues
+
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Update if you get class not found errors
 
 = 1.0.0 =
 No need to upgrade yet.
