@@ -188,7 +188,8 @@ function DC_plugin_action_links( $links, $file ) {
 	return $links;
 }
 
-add_action( 'wp_print_scripts', 'DC_print_scripts' );
+// @todo enable when needed
+//add_action( 'wp_print_scripts', 'DC_print_scripts' );
 /**
  * Enqueues scripts for non-admin pages.
  */
