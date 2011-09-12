@@ -42,11 +42,11 @@ class Decent_Comments_Widget extends WP_Widget {
 		if ( !has_action( 'wp_print_styles', array( 'Decent_Comments_Widget', '_wp_print_styles' ) ) ) {
 			add_action( 'wp_print_styles', array( 'Decent_Comments_Widget', '_wp_print_styles' ) );
 		}
-		if ( !has_action( 'comment_post', array( 'Decent_Comment_Widget', 'cache_delete' ) ) ) {
-			add_action( 'comment_post', array( 'Decent_Comment_Widget', 'cache_delete' ) );
+		if ( !has_action( 'comment_post', array( 'Decent_Comments_Widget', 'cache_delete' ) ) ) {
+			add_action( 'comment_post', array( 'Decent_Comments_Widget', 'cache_delete' ) );
 		}
-		if ( !has_action( 'transition_comment_status', array( 'Decent_Comment_Widget', 'cache_delete' ) ) ) {
-			add_action( 'transition_comment_status', array( 'Decent_Comment_Widget', 'cache_delete' ) );
+		if ( !has_action( 'transition_comment_status', array( 'Decent_Comments_Widget', 'cache_delete' ) ) ) {
+			add_action( 'transition_comment_status', array( 'Decent_Comments_Widget', 'cache_delete' ) );
 		}
 	}
 	
