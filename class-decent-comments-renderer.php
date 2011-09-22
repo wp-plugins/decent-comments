@@ -120,11 +120,15 @@ class Decent_Comments_Renderer {
 				$content = $comment->comment_content;
 			}
 			
+			// guard against shortcodes in comments
+			$content = str_replace("[", "&#91;", $content);
+			$content = str_replace("]", "&#93;", $content);
+			
 			if ( $excerpt ) {
 				$content = preg_replace( "/\s+/", " ", $content );
 				$words = explode( " ", $content );
-				
-				for ( $i = 0; $i < $max_excerpt_words ; $i++ ) {
+				$nwords = count( $words );
+				for ( $i = 0; ( $i < $max_excerpt_words ) && ( $i < $nwords ); $i++ ) {
 					$output .= $words[$i];
 					if ( $i < $max_excerpt_words - 1) {
 						$output .= " ";
