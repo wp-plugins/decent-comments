@@ -25,7 +25,7 @@ Anywhere you place comments, by means of a widget, a shortcode or an API call, y
 - Show the author's avatar and determine it's size.
 - Sort by author email, author URL, content (what's said in the comment), date, karma or post ... in ascending or descending order.
 - Show comments for the current post or for a specific post.
-- and more ...
+- and more to come ... suggestions?
 
 __Feedback__ is welcome!
 If you need help, have problems, want to leave feedback or want to provide constructive criticism, please do so here at the [Decent Comments plugin page](http://www.itthinx.com/plugins/decent-comments).
