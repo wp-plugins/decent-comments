@@ -229,7 +229,7 @@ class Decent_Comment {
 					$term_names[] = "%s";
 				}
 				$term_names = implode( ",", $term_names );
-				$terms = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT term_id FROM $wpdb->terms WHERE name IN ( $term_names )", $terms ) );
+				$terms = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT term_id FROM $wpdb->terms WHERE slug IN ( $term_names )", $terms ) );
 				foreach ( $terms as $term ) {
 					if ( !in_array( $term->term_id, $term_ids ) ) {
 						$term_ids[] = $term->term_id;
@@ -247,7 +247,7 @@ class Decent_Comment {
 					$term_ids = "NULL";
 				}
 				$where .= $wpdb->prepare(
-					"AND comment_post_ID IN (
+					" AND comment_post_ID IN (
 						SELECT DISTINCT ID FROM $wpdb->posts
 						LEFT JOIN $wpdb->term_relationships ON $wpdb->posts.ID = $wpdb->term_relationships.object_id
 						LEFT JOIN $wpdb->term_taxonomy ON $wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id
