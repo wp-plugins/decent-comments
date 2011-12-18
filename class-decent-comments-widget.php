@@ -125,6 +125,9 @@ class Decent_Comments_Widget extends WP_Widget {
 	 * @see WP_Widget::update()
 	 */
 	function update( $new_instance, $old_instance ) {
+		
+		global $wpdb;
+		
 		$settings = $old_instance;
 		
 		// title
@@ -156,8 +159,8 @@ class Decent_Comments_Widget extends WP_Widget {
 		$post_id = $new_instance['post_id'];
 		if ( empty( $post_id ) ) {
 			unset( $settings['post_id'] );
-		} else if ("[current]" == $post_id ) {
-			$settings['post_id'] = "[current]";
+		} else if ( ("[current]" == $post_id ) || ("{current}" == $post_id ) )  {
+			$settings['post_id'] = "{current}";
 		} else if ( $post = get_post( $post_id ) ) {
 			$settings['post_id'] = $post->ID;
 		} else if ( $post = Decent_Comments_Helper::get_post_by_title( $post_id ) ) {
@@ -193,6 +196,33 @@ class Decent_Comments_Widget extends WP_Widget {
 		
 		// show_comment
 		$settings['show_comment'] = !empty( $new_instance['show_comment'] );
+		
+		// accept terms on a taxonomy
+		// this only allows terms if there is a taxonomy
+		if ( isset( $new_instance['taxonomy'] ) ) {
+			if ( $taxonomy = get_taxonomy( $new_instance['taxonomy'] ) ) {
+				$settings['taxonomy'] = $new_instance['taxonomy'];
+				if ( isset( $new_instance['terms'] ) ) {
+					// let's see if those slugs are ok
+					$slugs = explode( ",", $new_instance['terms'] );
+					$slugs_ = array();
+					foreach( $slugs as $slug ) {
+						$slug = trim( $slug );
+						$slug_ = $wpdb->get_var( $wpdb->prepare( "SELECT slug FROM $wpdb->terms LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id WHERE slug = %s AND taxonomy = %s", $slug, $new_instance['taxonomy'] ) );
+						if ( $slug_ === $slug ) {
+							$slugs_[] = $slug;
+						}
+					}
+					if ( count( $slugs_ ) > 0 ) {
+						$settings['terms'] = implode( ",", $slugs_ );
+					} else {
+						unset( $settings['terms'] );
+					}
+				}
+			} else {
+				unset( $settings['taxonomy'] );
+			}
+		}
 
 		$this->cache_delete();
 		
@@ -209,29 +239,21 @@ class Decent_Comments_Widget extends WP_Widget {
 		extract( Decent_Comments_Renderer::$defaults );
 		
 		// title
-		if ( isset( $instance['title'] ) ) {
-			$title = $instance['title'];
-		} else {
-			$title = "";
-		}
+		$title = isset( $instance['title'] ) ? $instance['title'] : "";
 		echo "<p>";
 		echo '<label for="' .$this->get_field_id( 'title' ) . '">' . __( 'Title' ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'title' ) . '" name="' . $this->get_field_name( 'title' ) . '" type="text" value="' . esc_attr( $title ) . '" />';
 		echo '</p>';
 		
 		// number
-		if ( isset( $instance['number'] ) ) {
-			$number = intval( $instance['number'] );
-		}
+		$number = isset( $instance['number'] ) ? intval( $instance['number'] ) : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The number of comments to show.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'number' ) . '">' . __( 'Number of comments' ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'number' ) . '" name="' . $this->get_field_name( 'number' ) . '" type="text" value="' . esc_attr( $number ) . '" />';
 		echo '</p>';
 		
 		// orderby
-		if ( isset( $instance['orderby'] ) ) {
-			$orderby = $instance['orderby'];
-		}
+		$orderby = isset( $instance['orderby'] ) ? $instance['orderby'] : '';
 		echo '<p>';
 		echo '<label class="title" title="' . __( "Sorting criteria.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'orderby' ) . '">' . __( 'Order by ...' ) . '</label>';
 		echo '<select class="widefat" name="' . $this->get_field_name( 'orderby' ) . '">';
@@ -243,9 +265,7 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 		
 		// order
-		if ( isset( $instance['order'] ) ) {
-			$order = $instance['order'];
-		}
+		$order = isset( $instance['order'] ) ? $instance['order'] : '';
 		echo '<p>';
 		echo '<label class="title" title="' . __( "Sort order.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'order' ) . '">' . __( 'Sort order' ) . '</label>';
 		echo '<select class="widefat" name="' . $this->get_field_name( 'order' ) . '">';
@@ -259,8 +279,8 @@ class Decent_Comments_Widget extends WP_Widget {
 		// post_id
 		$post_id = '';
 		if ( isset( $instance['post_id'] ) ) {
-			if ( '[current]' == strtolower( $instance['post_id'] ) ) {
-				$post_id = '[current]';
+			if ( ( '[current]' == strtolower( $instance['post_id'] ) ) || ( '{current}' == strtolower( $instance['post_id'] ) ) ) {
+				$post_id = '{current}';
 			} else {
 				$post_id = $instance['post_id'];
 			}
@@ -284,18 +304,14 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 		
 		// max_excerpt_words
-		if ( isset( $instance['max_excerpt_words'] ) ) {
-			$max_excerpt_words = intval( $instance['max_excerpt_words'] );
-		}
+		$max_excerpt_words = isset( $instance['max_excerpt_words'] ) ? intval( $instance['max_excerpt_words'] ) : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The maximum number of words shown in excerpts.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'max_excerpt_words' ) . '">' . __( 'Number of words in excerpts' ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'max_excerpt_words' ) . '" name="' . $this->get_field_name( 'max_excerpt_words' ) . '" type="text" value="' . esc_attr( $max_excerpt_words ) . '" />';
 		echo '</p>';
 		
 		// ellipsis
-		if ( isset( $instance['ellipsis'] ) ) {
-			$ellipsis = $instance['ellipsis'];
-		}
+		$ellipsis = isset( $instance['ellipsis'] ) ? $instance['ellipsis'] : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The ellipsis is shown after the excerpt when there is more content.", DC_PLUGIN_DOMAIN ) . '" for="' .$this->get_field_id( 'ellipsis' ) . '">' . __( 'Ellipsis' ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'ellipsis' ) . '" name="' . $this->get_field_name( 'ellipsis' ) . '" type="text" value="' . esc_attr( $ellipsis ) . '" />';
@@ -316,9 +332,7 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 
 		// avatar size
-		if ( isset( $instance['avatar_size'] ) ) {
-			$avatar_size = intval( $instance['avatar_size'] );
-		}
+		$avatar_size = isset( $instance['avatar_size'] ) ? intval( $instance['avatar_size'] ) : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The size of the avatar in pixels.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'avatar_size' ) . '">' . __( 'Avatar size' ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'avatar_size' ) . '" name="' . $this->get_field_name( 'avatar_size' ) . '" type="text" value="' . esc_attr( $avatar_size ) . '" />';
@@ -338,7 +352,30 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<label class="title" title="' . __( "Show an excerpt of the comment or the full comment.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_comment' ) . '">' . __( 'Show the comment', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 		
-		// @todo render widget if no comments? option 
+		// taxonomy & terms
+		$taxonomy = isset( $instance['taxonomy'] ) ? $instance['taxonomy'] : '';
+		echo "<p>";
+		echo '<label class="title" title="' . __( "A taxonomy, e.g. category or post_tag", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'taxonomy' ) . '">' . __( 'Taxonomy' ) . '</label>';
+		echo '<input class="widefat" id="' . $this->get_field_id( 'taxonomy' ) . '" name="' . $this->get_field_name( 'taxonomy' ) . '" type="text" value="' . esc_attr( $taxonomy ) . '" />';
+		echo '<br/>';
+		echo '<span class="description">' . __( "Indicate <strong>category</strong> if you would like to show comments on posts in certain categories. Give the desired categories' slugs in <strong>Terms</strong>. For tags use <strong>post_tag</strong> and give the tags' slugs in <strong>Terms</strong>.", DC_PLUGIN_DOMAIN ) . '</span>';
+		echo '</p>';
+		
+		$terms = '';
+		if ( isset( $instance['terms'] ) ) {
+			if ( ( '[current]' == strtolower( $instance['terms'] ) ) || ( '{current}' == strtolower( $instance['terms'] ) ) ) {
+				$terms = '{current}';
+			} else {
+				$terms = $instance['terms'];
+			}
+		}
+		echo "<p>";
+		echo '<label class="title" title="' . __( "If a taxonomy is given , indicate terms in that taxonomy separated by comma to show comments for all posts related to these terms. To show comments on posts related to the same terms as the current post, indicate: {current}. If a taxonomy is given and terms is empty, no comments will be shown.", DC_PLUGIN_DOMAIN ) . '" for="' .$this->get_field_id( 'terms' ) . '">' . __( 'Terms' ) . '</label>';
+		echo '<input class="widefat" id="' . $this->get_field_id( 'terms' ) . '" name="' . $this->get_field_name( 'terms' ) . '" type="text" value="' . esc_attr( $terms ) . '" />';
+		echo '<br/>';
+		echo '<span class="description">' . __( "Terms or {current}. A <strong>Taxonomy</strong> must be given.", DC_PLUGIN_DOMAIN ) . '</span>';
+		echo '</p>';
+		 
 	}
 }// class Decent_Comments_Widget
 
