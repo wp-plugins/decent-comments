@@ -30,6 +30,7 @@ class Decent_Comments_Renderer {
 	 * excerpt
 	 * max_excerpt_words
 	 * strip_tags
+	 * ...
 	 * 
 	 * @var array
 	 */
@@ -48,7 +49,12 @@ class Decent_Comments_Renderer {
 		"show_author"  => true,
 		"show_avatar"  => true,
 		"show_link"    => true,
-		"show_comment" => true
+		"show_comment" => true,
+		
+		// taxonomy & term related, see the Decent_Comment class
+		"taxonomy"     => null,
+		"terms"        => null,
+		'term_ids'     => null,
 	);
 	
 	/**
@@ -121,8 +127,8 @@ class Decent_Comments_Renderer {
 			}
 			
 			// guard against shortcodes in comments
-			$content = str_replace("[", "&#91;", $content);
-			$content = str_replace("]", "&#93;", $content);
+			$content = str_replace( "[", "&#91;", $content );
+			$content = str_replace( "]", "&#93;", $content );
 			
 			if ( $excerpt ) {
 				$content = preg_replace( "/\s+/", " ", $content );
@@ -171,24 +177,66 @@ class Decent_Comments_Renderer {
 			$orderby = $options['orderby'];
 		}
 		if ( isset( $options['post_id'] ) ) {
-			if ( "[current]" == $options['post_id'] ) {
+			if ( ( "{current}" == $options['post_id'] ) || ( "[current]" == $options['post_id'] ) ) {
 				$post_id = get_the_ID();
 			} else if ( $post = get_post( $options['post_id'] ) ) {
 				$post_id = $post->ID;
 			}
 		}
 		
+		// Any chosen terms? - Needs taxonomy to be given as well.
+		if ( isset( $options['terms'] ) ) {
+			$terms = $options['terms'];
+		}
+		// Any term ids given? - Needs taxonomy to be given as well.
+		if ( isset( $options['term_ids'] ) ) {
+			$term_ids = $options['term_ids'];
+		}
+		// What taxonomy? - {current} will void $terms and $term_ids above and
+		// replace with those related to current post if any.
+		$taxonomy = !empty( $options['taxonomy'] ) ? $options['taxonomy'] : self::$defaults['taxonomy']; 
+		if ( isset( $options['terms'] ) && !empty( $taxonomy ) ) {
+			// If the {current} option is used, get the current post's terms
+			// and use their ids to look for comments on posts that are
+			// related to the same terms.
+			if ( ( "{current}" == $options['terms'] ) || ( "[current]" == $options['terms'] ) ) {
+				// limit to term ids
+				$terms = null;
+				$foo = get_the_ID();
+				$term_ids = array();
+				// build term ids
+				if ( $current_terms = get_the_terms( get_the_ID(), $taxonomy ) ) {
+					foreach ( $current_terms as $term ) {
+						$term_ids[] = $term->term_id;
+					}
+				}
+			}
+		}
+		
+		// basic options: number, sort, comments must be approved
 		$comment_args = array(
-			'number' => $number,
-			'order' => $order,
+			'number'  => $number,
+			'order'   => $order,
 			'orderby' => $orderby,
-			'status' => 'approve'
+			'status'  => 'approve'
 		);
+		// comments for a specific post
 		if ( isset( $post_id ) ) {
 			$comment_args['post_id'] = $post_id;
 		}
+		// comments related to taxonomies & terms
+		if ( !empty( $taxonomy ) ) {
+			$comment_args['taxonomy'] = $taxonomy;
+		}
+		if ( !empty( $terms ) ) {
+			$comment_args['terms'] = $terms;
+		}
+		if ( !empty( $term_ids ) ) {
+			$comment_args['term_ids'] = $term_ids;
+		}
 		
-		$comments = get_comments( $comment_args );
+		require_once( dirname( __FILE__ ) . '/class-decent-comment.php' );
+		$comments = Decent_Comment::get_comments( $comment_args );
 		
 		if ( !empty( $comments ) ) {
 			

@@ -25,6 +25,7 @@ Anywhere you place comments, by means of a widget, a shortcode or an API call, y
 - Show the author's avatar and determine it's size.
 - Sort by author email, author URL, content (what's said in the comment), date, karma or post ... in ascending or descending order.
 - Show comments for the current post or for a specific post.
+- Show comments for posts in specific categories, for specific tags, ... (more precisely: the ability to show comments from posts related to one or more terms in a chosen taxonomy).
 - and more to come ... suggestions?
 
 __Feedback__ is welcome!
@@ -95,6 +96,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.0 =
+* Added own comment retriever which allows for more versatile ways to get comments.
+
 = 1.0.3 =
 * guarded against shortcode interpretation in comments
 
@@ -108,6 +112,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+If you want to display comments on posts in a specific category, this version will please you :)
 
 = 1.0.3 =
 Please update, this release guards against shortcode interpretation in comments rendered.

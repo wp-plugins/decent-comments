@@ -38,4 +38,5 @@ class Decent_Comments_Shortcode {
 } // class Decent_Comments_Shortcode
 
 add_shortcode( 'decent-comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
+add_shortcode( 'decent_comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
 ?>
