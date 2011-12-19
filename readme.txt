@@ -98,6 +98,8 @@ Translations are also welcome!
 
 = 1.1.0 =
 * Added own comment retriever which allows for more versatile ways to get comments.
+* Widget and shortcode allow to show comments from posts related to one or more terms in a chosen taxonomy.
+* Shortcode now works like this [decent_comments/] and as before [decent-comments/] 
 
 = 1.0.3 =
 * guarded against shortcode interpretation in comments
@@ -115,6 +117,7 @@ Translations are also welcome!
 
 = 1.1.0 =
 If you want to display comments on posts in a specific category, this version will please you :)
+Also works for tags ... actually, it allows to choose terms from any taxonomy.
 
 = 1.0.3 =
 Please update, this release guards against shortcode interpretation in comments rendered.
