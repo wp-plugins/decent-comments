@@ -26,7 +26,7 @@ Anywhere you place comments, by means of a widget, a shortcode or an API call, y
 - Sort by author email, author URL, content (what's said in the comment), date, karma or post ... in ascending or descending order.
 - Show comments for the current post or for a specific post.
 - Show comments for posts in specific categories, for specific tags, ... (more precisely: the ability to show comments from posts related to one or more terms in a chosen taxonomy).
-- and more to come ... suggestions?
+- and more to come ... got suggestions?
 
 __Feedback__ is welcome!
 If you need help, have problems, want to leave feedback or want to provide constructive criticism, please do so here at the [Decent Comments plugin page](http://www.itthinx.com/plugins/decent-comments).
