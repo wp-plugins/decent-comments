@@ -3,8 +3,9 @@ Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.3.2
 Stable tag: 1.1.0
+License: GPLv3
 
 Decent Comments shows what people say. Provides widgets, shortcodes and API to display comments including author avatars, links, comment excerpts.
 
@@ -33,7 +34,11 @@ If you need help, have problems, want to leave feedback or want to provide const
 
 Please try to solve problems there before you rate this plugin or say it doesn't work. There goes a _lot_ of work into providing you with free quality plugins! Please appreciate that and help with your feedback. Thanks!
 
-[Follow me on Twitter](http://twitter.com/itthinx) for updates on this and other plugins.  
+[Follow me on Twitter](http://twitter.com/itthinx) for updates on this and other plugins.
+
+__Translations__
+
+* Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com) - Many thanks!
 
 == Installation ==
 
@@ -96,6 +101,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.1 =
+* Lithuanian translation added
+
 = 1.1.0 =
 * Added own comment retriever which allows for more versatile ways to get comments.
 * Widget and shortcode allow to show comments from posts related to one or more terms in a chosen taxonomy.
@@ -114,6 +122,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+* Added Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com)
 
 = 1.1.0 =
 If you want to display comments on posts in a specific category, this version will please you :)
