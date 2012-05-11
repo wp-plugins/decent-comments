@@ -2,7 +2,7 @@
 /**
  * decent-comments.php
  * 
- * Copyright (c) 2011 "kento" Karim Rahimpur www.itthinx.com
+ * Copyright (c) 2011, 2012 "kento" Karim Rahimpur www.itthinx.com
  * 
  * This code is released under the GNU General Public License.
  * See COPYRIGHT.txt and LICENSE.txt.
@@ -21,8 +21,8 @@
  * Plugin Name: Decent Comments
  * Plugin URI: http://www.itthinx.com/plugins/decent-comments
  * Description: Provides configurable means to display comments that include author's avatars, author link, link to post and most importantly an excerpt of each comment. There are several options ... 
- * Version: 1.1.0
- * Author: itthinx (Karim Rahimpur)
+ * Version: 1.1.1
+ * Author: itthinx
  * Author URI: http://www.itthinx.com
  * Donate-Link: http://www.itthinx.com/plugins/decent-comments
  * License: GPLv3
@@ -123,7 +123,7 @@ add_action( 'admin_menu', 'DC_admin_menu' );
  */
 function DC_admin_menu() {
 	if ( function_exists('add_submenu_page') ) {
-		add_submenu_page('plugins.php', __('Decent Comments Options'), __('Decent Comments'), 'manage_options', 'decent-comments-options', 'DC_options');
+		add_submenu_page( 'plugins.php', __( 'Decent Comments Options', DC_PLUGIN_DOMAIN ), __( 'Decent Comments', DC_PLUGIN_DOMAIN ), 'manage_options', 'decent-comments-options', 'DC_options');
 	}
 }
 
@@ -183,7 +183,7 @@ add_filter( 'plugin_action_links', 'DC_plugin_action_links', 10, 2 );
  */
 function DC_plugin_action_links( $links, $file ) {
 	if ( $file == plugin_basename( dirname(__FILE__) . '/decent-comments.php' ) ) {
-		$links[] = '<a href="plugins.php?page=decent-comments-options">'.__('Options').'</a>';
+		$links[] = '<a href="plugins.php?page=decent-comments-options">'.__( 'Options', DC_PLUGIN_DOMAIN ).'</a>';
 	}
 	return $links;
 }
@@ -240,6 +240,16 @@ add_action( 'widgets_init', 'DC_widgets_init' );
  */
 function DC_widgets_init() {
 	require_once( dirname(__FILE__ ) . '/class-decent-comments-widget.php' );
+}
+
+add_action( 'init', 'DC_init' );
+
+/**
+ * Initialization.
+ * - Loads the plugin's translations.
+ */
+function DC_init() {
+	load_plugin_textdomain( DC_PLUGIN_DOMAIN, null, 'decent-comments/languages' );
 }
 
 require_once( dirname(__FILE__ ) . '/class-decent-comments-shortcode.php' );
