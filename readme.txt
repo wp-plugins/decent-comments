@@ -3,7 +3,7 @@ Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
-Tested up to: 3.3.2
+Tested up to: 3.4.1
 Stable tag: 1.1.1
 License: GPLv3
 
@@ -101,6 +101,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.2 =
+* Added option to restrict comments shown by post ID when using the shortcode.
+
 = 1.1.1 =
 * Lithuanian translation added
 
@@ -122,6 +125,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+* Added option to restrict comments shown by post ID when using the shortcode.
 
 = 1.1.1 =
 * Added Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com)

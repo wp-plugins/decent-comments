@@ -55,6 +55,9 @@ class Decent_Comments_Renderer {
 		"taxonomy"     => null,
 		"terms"        => null,
 		'term_ids'     => null,
+		
+		// by post
+		'post_id'      => null
 	);
 	
 	/**
@@ -176,7 +179,7 @@ class Decent_Comments_Renderer {
 		if ( isset( $options['orderby'] ) ) {
 			$orderby = $options['orderby'];
 		}
-		if ( isset( $options['post_id'] ) ) {
+		if ( isset( $options['post_id'] ) && ( $options['post_id'] !== null ) ) {
 			if ( ( "{current}" == $options['post_id'] ) || ( "[current]" == $options['post_id'] ) ) {
 				$post_id = get_the_ID();
 			} else if ( $post = get_post( $options['post_id'] ) ) {
