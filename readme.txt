@@ -101,6 +101,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.3 =
+* Added German translation.
+
 = 1.1.2 =
 * Added option to restrict comments shown by post ID when using the shortcode.
 
@@ -125,6 +128,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+* Added German translation.
 
 = 1.1.2 =
 * Added option to restrict comments shown by post ID when using the shortcode.
