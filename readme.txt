@@ -101,6 +101,11 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.4 =
+* Added options to include Pingback/Trackback.
+* WordPress 3.5 compatibility.
+* Fixed some options not working (booleans).
+
 = 1.1.3 =
 * Added German translation.
 
@@ -128,6 +133,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.4 =
+* WordPress 3.5 compatibility, new options to include or exclude Pingbacks and Trackbacks and bug fixes.
 
 = 1.1.3 =
 * Added German translation.

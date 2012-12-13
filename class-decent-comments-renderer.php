@@ -40,7 +40,7 @@ class Decent_Comments_Renderer {
 		"excerpt"           => true,
 		"max_excerpt_words" => 20,
 		"strip_tags"        => true,
-	
+
 		//
 		"avatar_size"  => 24,
 		"number"       => 5,
@@ -50,14 +50,17 @@ class Decent_Comments_Renderer {
 		"show_avatar"  => true,
 		"show_link"    => true,
 		"show_comment" => true,
-		
+
 		// taxonomy & term related, see the Decent_Comment class
 		"taxonomy"     => null,
 		"terms"        => null,
 		'term_ids'     => null,
-		
+
 		// by post
-		'post_id'      => null
+		'post_id'      => null,
+
+		'pingback'     => true,
+		'trackback'    => true
 	);
 	
 	/**
@@ -163,7 +166,7 @@ class Decent_Comments_Renderer {
 	 * @uses Decent_Comments_Renderer::get_comment()
 	 */
 	static function get_comments( $options = array() ) {
-		
+
 		// output
 		$output = '';
 
@@ -215,6 +218,12 @@ class Decent_Comments_Renderer {
 				}
 			}
 		}
+		if ( isset( $options['pingback'] ) ) {
+			$pingback = ( $options['pingback'] !== 'false' && $options['pingback'] !== false );
+		}
+		if ( isset( $options['trackback'] ) ) {
+			$trackback = ( $options['trackback'] === 'false' && $options['pingback'] !== false );
+		}
 		
 		// basic options: number, sort, comments must be approved
 		$comment_args = array(
@@ -237,7 +246,13 @@ class Decent_Comments_Renderer {
 		if ( !empty( $term_ids ) ) {
 			$comment_args['term_ids'] = $term_ids;
 		}
-		
+		if ( isset( $pingback ) ) {
+			$comment_args['pingback'] = $pingback;
+		}
+		if ( isset( $trackback ) ) {
+			$comment_args['trackback'] = $trackback;
+		}
+
 		require_once( dirname( __FILE__ ) . '/class-decent-comment.php' );
 		$comments = Decent_Comment::get_comments( $comment_args );
 		
@@ -248,7 +263,7 @@ class Decent_Comments_Renderer {
 				$avatar_size = intval( $options['avatar_size'] );
 			}
 			if ( isset( $options['excerpt'] ) ) {
-				$excerpt = $options['excerpt'] !== false;
+				$excerpt = ( $options['excerpt'] !== 'false' && $options['excerpt'] !== false );
 			}
 			if ( isset( $options['max_excerpt_words'] ) ) {
 				$max_excerpt_words = intval( $options['max_excerpt_words'] );
@@ -257,18 +272,18 @@ class Decent_Comments_Renderer {
 				$ellipsis = $options['ellipsis'];
 			}
 			if ( isset( $options['show_author'] ) ) {
-				$show_author = $options['show_author'] !== false;
+				$show_author = ( $options['show_author'] !== 'false' && $options['show_author'] !== false );
 			}
 			if ( isset( $options['show_avatar'] ) ) {
-				$show_avatar = $options['show_avatar'] !== false;
+				$show_avatar = ( $options['show_avatar'] !== 'false' && $options['show_avatar'] !== false );
 			}
 			if ( isset( $options['show_link'] ) ) {
-				$show_link = $options['show_link'] !== false;
+				$show_link = ( $options['show_link'] !== 'false' && $options['show_link'] !== false );
 			}
 			if ( isset( $options['show_comment'] ) ) {
-				$show_comment = $options['show_comment'] !== false;
+				$show_comment = ( $options['show_comment'] !== 'false' && $options['show_comment'] !== false );
 			}
-			
+
 			$output .= '<div class="decent-comments">';
 			$output .= '<ul>';
 			

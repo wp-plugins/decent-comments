@@ -223,6 +223,10 @@ class Decent_Comments_Widget extends WP_Widget {
 				unset( $settings['taxonomy'] );
 			}
 		}
+		
+		// pingback, trackback
+		$settings['pingback'] = !empty( $new_instance['pingback'] );
+		$settings['trackback'] = !empty( $new_instance['trackback'] );
 
 		$this->cache_delete();
 		
@@ -375,7 +379,21 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<br/>';
 		echo '<span class="description">' . __( "Terms or {current}. A <strong>Taxonomy</strong> must be given.", DC_PLUGIN_DOMAIN ) . '</span>';
 		echo '</p>';
-		 
+		
+		// pingback
+		$checked = ( ( ( !isset( $instance['pingback'] ) && Decent_Comments_Renderer::$defaults['pingback'] ) || ( $instance['pingback'] === true ) ) ? 'checked="checked"' : '' );
+		echo '<p>';
+		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'pingback' ) . '" />';
+		echo '<label class="title" title="' . __( "Include pingbacks.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'pingback' ) . '">' . __( 'Pingbacks', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '</p>';
+		
+		// trackback
+		$checked = ( ( ( !isset( $instance['trackback'] ) && Decent_Comments_Renderer::$defaults['trackback'] ) || ( $instance['trackback'] === true ) ) ? 'checked="checked"' : '' );
+		echo '<p>';
+		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'trackback' ) . '" />';
+		echo '<label class="title" title="' . __( "Include trackbacks.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'trackback' ) . '">' . __( 'Trackbacks', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '</p>';
+
 	}
 }// class Decent_Comments_Widget
 
