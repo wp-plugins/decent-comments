@@ -203,20 +203,24 @@ class Decent_Comments_Widget extends WP_Widget {
 			if ( $taxonomy = get_taxonomy( $new_instance['taxonomy'] ) ) {
 				$settings['taxonomy'] = $new_instance['taxonomy'];
 				if ( isset( $new_instance['terms'] ) ) {
-					// let's see if those slugs are ok
-					$slugs = explode( ",", $new_instance['terms'] );
-					$slugs_ = array();
-					foreach( $slugs as $slug ) {
-						$slug = trim( $slug );
-						$slug_ = $wpdb->get_var( $wpdb->prepare( "SELECT slug FROM $wpdb->terms LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id WHERE slug = %s AND taxonomy = %s", $slug, $new_instance['taxonomy'] ) );
-						if ( $slug_ === $slug ) {
-							$slugs_[] = $slug;
+					if ( $new_instance['terms'] != '{current}' ) {
+						// let's see if those slugs are ok
+						$slugs = explode( ",", $new_instance['terms'] );
+						$slugs_ = array();
+						foreach( $slugs as $slug ) {
+							$slug = trim( $slug );
+							$slug_ = $wpdb->get_var( $wpdb->prepare( "SELECT slug FROM $wpdb->terms LEFT JOIN $wpdb->term_taxonomy ON $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id WHERE slug = %s AND taxonomy = %s", $slug, $new_instance['taxonomy'] ) );
+							if ( $slug_ === $slug ) {
+								$slugs_[] = $slug;
+							}
 						}
-					}
-					if ( count( $slugs_ ) > 0 ) {
-						$settings['terms'] = implode( ",", $slugs_ );
+						if ( count( $slugs_ ) > 0 ) {
+							$settings['terms'] = implode( ",", $slugs_ );
+						} else {
+							unset( $settings['terms'] );
+						}
 					} else {
-						unset( $settings['terms'] );
+						$settings['terms'] = '{current}';
 					}
 				}
 			} else {

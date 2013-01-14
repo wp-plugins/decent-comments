@@ -101,6 +101,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.1.5 =
+* Fixed : {current} wasn't accepted as Terms in widget.
+
 = 1.1.4 =
 * Added options to include Pingback/Trackback.
 * WordPress 3.5 compatibility.
@@ -133,6 +136,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+* Bugfix related to using {current} for comments based on taxonomies.
 
 = 1.1.4 =
 * WordPress 3.5 compatibility, new options to include or exclude Pingbacks and Trackbacks and bug fixes.
