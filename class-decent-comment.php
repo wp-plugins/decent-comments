@@ -63,7 +63,7 @@ class Decent_Comment {
 	 * @return int|array
 	 */
 	function query( $query_vars ) {
-		
+		error_log(var_export($query_vars,true));//@todo remove
 		global $wpdb;
 
 		$defaults = array(

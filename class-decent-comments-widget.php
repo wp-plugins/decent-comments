@@ -167,6 +167,14 @@ class Decent_Comments_Widget extends WP_Widget {
 			$settings['post_id'] = $post->ID;
 		}
 		
+		// post type
+		$post_type = $new_instance['post_type'];
+		if ( empty( $post_type ) ) {
+			unset( $settings['post_type'] );
+		} else {
+			$settings['post_type'] = trim( $post_type );
+		}
+		
 		// excerpt
 		$settings['excerpt'] = !empty( $new_instance['excerpt'] );
 		
@@ -181,6 +189,9 @@ class Decent_Comments_Widget extends WP_Widget {
 		
 		// show_author
 		$settings['show_author'] = !empty( $new_instance['show_author'] );
+
+		// link_author
+		$settings['link_author'] = !empty( $new_instance['link_author'] );
 		
 		// show_avatar
 		$settings['show_avatar'] = !empty( $new_instance['show_avatar'] );
@@ -303,7 +314,20 @@ class Decent_Comments_Widget extends WP_Widget {
 			echo '<span class="description"> ' . sprintf( __("Selected post: <em>%s</em>", DC_PLUGIN_DOMAIN ) , $post_title ) . '</span>';
 		}
 		echo '</p>';
-        
+		
+		// post type
+		$post_types = get_post_types( array( 'public' => true ) );
+		$post_type = '';
+		if ( !empty( $instance['post_type'] ) ) {
+			$post_type = $instance['post_type'];
+		}
+		echo "<p>";
+		echo '<label class="title" title="' . __( "Leave empty to show comments for all post types. To show comments for a specific post type only, indicate the post type.", DC_PLUGIN_DOMAIN ) . '" for="' .$this->get_field_id( 'post_type' ) . '">' . __( 'Post Type', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '<input class="widefat" id="' . $this->get_field_id( 'post_type' ) . '" name="' . $this->get_field_name( 'post_type' ) . '" type="text" value="' . esc_attr( $post_type ) . '" />';
+		echo '<br/>';
+		echo '<span class="description">' . sprintf( __( "Available post types: %s", DC_PLUGIN_DOMAIN ), implode( ', ', $post_types ) ) . '</span>';
+		echo '</p>';
+		
 		// excerpt
 		$checked = ( ( ( !isset( $instance['excerpt'] ) && Decent_Comments_Renderer::$defaults['excerpt'] ) || ( $instance['excerpt'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
@@ -330,6 +354,13 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_author' ) . '" />';
 		echo '<label class="title" title="' . __( "Whether to show the author of each comment.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_author' ) . '">' . __( 'Show author', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '</p>';
+		
+		// link_author
+		$checked = ( ( ( !isset( $instance['link_author'] ) && Decent_Comments_Renderer::$defaults['link_author'] ) || ( $instance['link_author'] === true ) ) ? 'checked="checked"' : '' );
+		echo '<p>';
+		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'link_author' ) . '" />';
+		echo '<label class="title" title="' . __( "Whether to link comment authors to their website.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'link_author' ) . '">' . __( 'Link authors', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 		
 		// show_avatar

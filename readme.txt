@@ -3,7 +3,7 @@ Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 3.6
 Stable tag: 1.1.5
 License: GPLv3
 
@@ -26,6 +26,7 @@ Anywhere you place comments, by means of a widget, a shortcode or an API call, y
 - Show the author's avatar and determine it's size.
 - Sort by author email, author URL, content (what's said in the comment), date, karma or post ... in ascending or descending order.
 - Show comments for the current post or for a specific post.
+- Show comments for a specific post type.
 - Show comments for posts in specific categories, for specific tags, ... (more precisely: the ability to show comments from posts related to one or more terms in a chosen taxonomy).
 - and more to come ... got suggestions?
 
@@ -38,7 +39,11 @@ Please try to solve problems there before you rate this plugin or say it doesn't
 
 __Translations__
 
-* Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com) - Many thanks!
+* French translation provided by Thomas Mur from [Creapage.net](http://www.creapage.net)
+* German translation provided by the author [itthinx](http://www.itthinx.com)
+* Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com)
+
+Many thanks!
 
 == Installation ==
 
@@ -101,6 +106,12 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.2.0 =
+* Added feature: show comments for a specific post type.
+* Fixed: not linking author's avatar when the author has no related URL.
+* Added feature: option to link comment authors to their site or not.
+* Added French translation.
+
 = 1.1.5 =
 * Fixed : {current} wasn't accepted as Terms in widget.
 
@@ -136,6 +147,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* Several improvements and now also supports showing comments by post type (shortcode and widget). WordPress 3.6 compatibility checked.
 
 = 1.1.5 =
 * Bugfix related to using {current} for comments based on taxonomies.

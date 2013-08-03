@@ -47,6 +47,7 @@ class Decent_Comments_Renderer {
 		"order"        => "DESC",
 		"orderby"      => "comment_date_gmt",
 		"show_author"  => true,
+		"link_author"  => true,
 		"show_avatar"  => true,
 		"show_link"    => true,
 		"show_comment" => true,
@@ -58,6 +59,9 @@ class Decent_Comments_Renderer {
 
 		// by post
 		'post_id'      => null,
+
+		// by post type
+		'post_type'    => null,
 
 		'pingback'     => true,
 		'trackback'    => true
@@ -189,6 +193,13 @@ class Decent_Comments_Renderer {
 				$post_id = $post->ID;
 			}
 		}
+		if ( isset( $options['post_type'] ) ) {
+			$post_type = trim( $options['post_type'] );
+			$post_types = get_post_types( array( 'public' => true ) );
+			if ( !in_array( $post_type, $post_types ) ) {
+				$post_type = null;
+			}
+		}
 		
 		// Any chosen terms? - Needs taxonomy to be given as well.
 		if ( isset( $options['terms'] ) ) {
@@ -236,6 +247,10 @@ class Decent_Comments_Renderer {
 		if ( isset( $post_id ) ) {
 			$comment_args['post_id'] = $post_id;
 		}
+		// comments for a specific post type
+		if ( !empty( $post_type ) ) {
+			$comment_args['post_type'] = $post_type;
+		}
 		// comments related to taxonomies & terms
 		if ( !empty( $taxonomy ) ) {
 			$comment_args['taxonomy'] = $taxonomy;
@@ -274,6 +289,9 @@ class Decent_Comments_Renderer {
 			if ( isset( $options['show_author'] ) ) {
 				$show_author = ( $options['show_author'] !== 'false' && $options['show_author'] !== false );
 			}
+			if ( isset( $options['link_author'] ) ) {
+				$link_author = ( $options['link_author'] !== 'false' && $options['link_author'] !== false );
+			}
 			if ( isset( $options['show_avatar'] ) ) {
 				$show_avatar = ( $options['show_avatar'] !== 'false' && $options['show_avatar'] !== false );
 			}
@@ -295,15 +313,24 @@ class Decent_Comments_Renderer {
 				
 				if ( $show_avatar ) {
 					$output .= '<span class="comment-avatar">';
-					$output .= '<a href="'. get_comment_author_url( $comment->comment_ID ) . '" rel="external">';
+					$comment_author_url = get_comment_author_url( $comment->comment_ID );
+					if ( !empty( $comment_author_url ) && $link_author ) {
+						$output .= '<a href="'. $comment_author_url . '" rel="external">';
+					}
 					$output .= get_avatar( $comment->comment_author_email, $avatar_size );
-					$output .= '</a>';
+					if ( !empty( $comment_author_url ) ) {
+						$output .= '</a>';
+					}
 					$output .= '</span>'; // .comment-avatar
 				}
 				
 				if ( $show_author ) {
 					$output .= '<span class="comment-author">';
-					$output .= get_comment_author_link( $comment->comment_ID );
+					if ( $link_author ) {
+						$output .= get_comment_author_link( $comment->comment_ID );
+					} else {
+						$output .= get_comment_author( $comment->comment_ID );
+					}
 					$output .= '</span>'; // .comment-author
 				}
 				
