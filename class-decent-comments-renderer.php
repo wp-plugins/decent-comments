@@ -39,6 +39,7 @@ class Decent_Comments_Renderer {
 		"ellipsis"          => "...",
 		"excerpt"           => true,
 		"max_excerpt_words" => 20,
+		"max_excerpt_characters" => 0,
 		"strip_tags"        => true,
 
 		//
@@ -119,6 +120,10 @@ class Decent_Comments_Renderer {
 		if ( isset( $options["max_excerpt_words"] ) ) {
 			$max_excerpt_words = intval( $options["max_excerpt_words"] );
 		}
+		$max_excerpt_characters = self::$defaults['max_excerpt_characters'];
+		if ( isset( $options['max_excerpt_characters'] ) ) {
+			$max_excerpt_characters = intval( $options['max_excerpt_characters'] );
+		}
 		$strip_tags = self::$defaults['strip_tags'];
 		if ( isset( $options["strip_tags"] ) ) {
 			$strip_tags =  $options["strip_tags"] !== false;
@@ -141,6 +146,7 @@ class Decent_Comments_Renderer {
 			$content = str_replace( "]", "&#93;", $content );
 			
 			if ( $excerpt ) {
+				// word limit
 				$content = preg_replace( "/\s+/", " ", $content );
 				$words = explode( " ", $content );
 				$nwords = count( $words );
@@ -150,6 +156,23 @@ class Decent_Comments_Renderer {
 						$output .= " ";
 					} else {
 						$output .= $ellipsis;
+					}
+				}
+				// character limit
+				if ( $max_excerpt_characters > 0 ) {
+					if ( function_exists( 'mb_substr' ) ) {
+						$charset = get_bloginfo( 'charset' );
+						$length = mb_strlen( $output, $charset );
+						$output = mb_substr( $output, 0, $max_excerpt_characters, $charset );
+						if ( mb_strlen( $output ) < $length ) {
+							$output .= $ellipsis;
+						}
+					} else {
+						$length = strlen( $output );
+						$output = substr( $output, 0, $max_excerpt_characters );
+						if ( strlen( $output ) < $length ) {
+							$output .= $ellipsis;
+						}
 					}
 				}
 			} else {
@@ -283,6 +306,9 @@ class Decent_Comments_Renderer {
 			if ( isset( $options['max_excerpt_words'] ) ) {
 				$max_excerpt_words = intval( $options['max_excerpt_words'] );
 			}
+			if ( isset( $options['max_excerpt_characters'] ) ) {
+				$max_excerpt_characters = intval( $options['max_excerpt_characters'] );
+			}
 			if ( isset( $options['ellipsis'] ) ) {
 				$ellipsis = $options['ellipsis'];
 			}
@@ -345,7 +371,7 @@ class Decent_Comments_Renderer {
 
 				if ( $show_comment ) {
 					$output .= '<span class="comment-' . ( $excerpt ? "excerpt" : "body" ) . '">';
-					$output .= self::get_comment( $comment, array( "ellipsis" => $ellipsis, "excerpt" => $excerpt, "max_excerpt_words" => $max_excerpt_words) );
+					$output .= self::get_comment( $comment, array( "ellipsis" => $ellipsis, "excerpt" => $excerpt, "max_excerpt_words" => $max_excerpt_words, "max_excerpt_characters" => $max_excerpt_characters ) );
 					$output .= '</span>'; // .comment-body or .comment-excerpt
 				}
 				

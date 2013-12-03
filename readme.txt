@@ -3,7 +3,7 @@ Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
-Tested up to: 3.6
+Tested up to: 3.7.1
 Stable tag: 1.2.0
 License: GPLv3
 
@@ -39,8 +39,10 @@ Please try to solve problems there before you rate this plugin or say it doesn't
 
 __Translations__
 
+* Chinese translation provided by Francesco from [in Cina](http://www.in-cina.com)
 * French translation provided by Thomas Mur from [Creapage.net](http://www.creapage.net)
 * German translation provided by the author [itthinx](http://www.itthinx.com)
+* Italian translation provided by Francesco from [in Cina](http://www.in-cina.com)
 * Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com)
 
 Many thanks!
@@ -106,6 +108,11 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.3.0 =
+* Added: Chinese translation.
+* Added: Italian translation.
+* Added: New option to limit comment excerpts to a number of characters (useful for languages like Chinese where the word limit is not effective).
+
 = 1.2.0 =
 * Added feature: show comments for a specific post type.
 * Fixed: not linking author's avatar when the author has no related URL.
@@ -147,6 +154,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+* Added Italian and Chinese translations and support for comment excerpts limited by the number of characters (useful for languages like Chinese where the word limit is not effective).
 
 = 1.2.0 =
 * Several improvements and now also supports showing comments by post type (shortcode and widget). WordPress 3.6 compatibility checked.

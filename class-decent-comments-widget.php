@@ -183,7 +183,13 @@ class Decent_Comments_Widget extends WP_Widget {
 		if ( $max_excerpt_words > 0 ) {
 			$settings['max_excerpt_words'] = $max_excerpt_words;
 		}
-		
+
+		// max_excerpt_characters
+		$max_excerpt_characters = intval( $new_instance['max_excerpt_characters'] );
+		if ( $max_excerpt_characters >= 0 ) {
+			$settings['max_excerpt_characters'] = $max_excerpt_characters;
+		}
+
 		// ellipsis
 		$settings['ellipsis'] = strip_tags( $new_instance['ellipsis'] );
 		
@@ -341,7 +347,14 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<label class="title" title="' . __( "The maximum number of words shown in excerpts.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'max_excerpt_words' ) . '">' . __( 'Number of words in excerpts', DC_PLUGIN_DOMAIN ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'max_excerpt_words' ) . '" name="' . $this->get_field_name( 'max_excerpt_words' ) . '" type="text" value="' . esc_attr( $max_excerpt_words ) . '" />';
 		echo '</p>';
-		
+
+		// max_excerpt_characters
+		$max_excerpt_characters = isset( $instance['max_excerpt_characters'] ) ? intval( $instance['max_excerpt_characters'] ) : '';
+		echo "<p>";
+		echo '<label class="title" title="' . __( "The maximum number of characters shown in excerpts.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'max_excerpt_characters' ) . '">' . __( 'Number of characters in excerpts', DC_PLUGIN_DOMAIN ) . '</label>'; 
+		echo '<input class="widefat" id="' . $this->get_field_id( 'max_excerpt_characters' ) . '" name="' . $this->get_field_name( 'max_excerpt_characters' ) . '" type="text" value="' . esc_attr( $max_excerpt_characters ) . '" />';
+		echo '</p>';
+
 		// ellipsis
 		$ellipsis = isset( $instance['ellipsis'] ) ? $instance['ellipsis'] : '';
 		echo "<p>";
