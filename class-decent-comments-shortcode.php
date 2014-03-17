@@ -19,11 +19,15 @@
  * @since decent-comments 1.0.0
  */
 
+if ( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Decent Comments shortcode handler.
  */
 class Decent_Comments_Shortcode {
-	
+
 	/**
 	 * Renders comments based on shortcode attributes.
 	 * @param array $atts settings
@@ -34,9 +38,8 @@ class Decent_Comments_Shortcode {
 		$options = shortcode_atts( Decent_Comments_Renderer::$defaults, $atts );
 		return Decent_Comments_Renderer::get_comments( $options );
 	}
-	
+
 } // class Decent_Comments_Shortcode
 
 add_shortcode( 'decent-comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
 add_shortcode( 'decent_comments', array( 'Decent_Comments_Shortcode', 'decent_comments' ) );
-?>

@@ -19,11 +19,15 @@
  * @since decent-comments 1.0.0
  */
 
+if ( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Provdes helper functions.
  */
 class Decent_Comments_Helper {
-	
+
 	/**
 	 * Retrieves the first post that contains $title.
 	 * @param string $title what to search in titles for
@@ -53,4 +57,3 @@ class Decent_Comments_Helper {
 		return $post;
 	}
 }// class Decent_Comments_Helper
-?>

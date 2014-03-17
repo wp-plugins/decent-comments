@@ -19,6 +19,10 @@
  * @since decent-comments 1.1.0
  */
 
+if ( !defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Based on WP_Comment_Query - the WordPress Comment Query class defined
  * in wp-includes/comment.php
@@ -27,7 +31,7 @@
  * @since 1.1.0
  */
 class Decent_Comment {
-	
+
 	/**
 	 * Retrieve a list of comments.
 	 *
@@ -230,7 +234,7 @@ class Decent_Comment {
 		foreach ( $pieces as $piece ) {
 			$$piece = isset( $clauses[ $piece ] ) ? $clauses[ $piece ] : '';
 		}
-		
+
 		// terms - check the term_ids and limit comments to those on posts related to these terms
 		// If the list of term_ids is empty, there won't be any comments displayed.
 		if ( !empty( $taxonomy ) ) {

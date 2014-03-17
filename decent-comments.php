@@ -62,7 +62,7 @@ function DC_get_settings() {
 			$plugin_data = get_plugin_data( __FILE__ );
 			if ( !empty( $plugin_data ) ) {
 				$DC_version = $plugin_data['Version'];
-			}			
+			}
 		}
 	}
 	return $DC_settings;
@@ -131,11 +131,11 @@ function DC_admin_menu() {
  * Renders options screen and handles settings submission.
  */
 function DC_options() {
-	
+
 	if ( !current_user_can( "manage_options" ) ) {
 		wp_die( __( 'Access denied.', DC_PLUGIN_DOMAIN ) );
 	}
-	
+
 	echo
 		'<div>' .
 			'<h2>' .
@@ -155,12 +155,12 @@ function DC_options() {
 			_DC_update_settings( $settings );
 		}
 	}
-	
+
 	$delete_data = DC_get_setting( 'delete_data', false );
-	
+
 	// render options form
 	echo
-		'<form action="" name="options" method="post">' .		
+		'<form action="" name="options" method="post">' .
 			'<div>' .
 				'<h3>' . __( 'Settings', DC_PLUGIN_DOMAIN ) . '</h3>' .
 				'<p>' .
