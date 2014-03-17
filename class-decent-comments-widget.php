@@ -174,7 +174,10 @@ class Decent_Comments_Widget extends WP_Widget {
 		} else {
 			$settings['post_type'] = trim( $post_type );
 		}
-		
+
+		// exclude_post_author
+		$settings['exclude_post_author'] = !empty( $new_instance['exclude_post_author'] );
+
 		// excerpt
 		$settings['excerpt'] = !empty( $new_instance['excerpt'] );
 		
@@ -333,14 +336,24 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<br/>';
 		echo '<span class="description">' . sprintf( __( "Available post types: %s", DC_PLUGIN_DOMAIN ), implode( ', ', $post_types ) ) . '</span>';
 		echo '</p>';
-		
+
+		// exclude_post_author
+		$checked = ( (
+			( !isset( $instance['exclude_post_author'] ) && Decent_Comments_Renderer::$defaults['exclude_post_author'] ) || 
+			( isset( $instance['exclude_post_author'] ) && $instance['exclude_post_author'] === true ) )
+			? 'checked="checked"' : '' );
+		echo '<p>';
+		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'exclude_post_author' ) . '" />';
+		echo '<label class="title" title="' . __( "If checked, excludes comments from post authors on their own posts.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'exclude_post_author' ) . '">' . __( 'Exclude comments from post authors', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '</p>';
+
 		// excerpt
 		$checked = ( ( ( !isset( $instance['excerpt'] ) && Decent_Comments_Renderer::$defaults['excerpt'] ) || ( $instance['excerpt'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'excerpt' ) . '" />';
 		echo '<label class="title" title="' . __( "If checked, shows an excerpt of the comment. Otherwise the full text of the comment is displayed.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'excerpt' ) . '">' . __( 'Show comment excerpt', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
-		
+
 		// max_excerpt_words
 		$max_excerpt_words = isset( $instance['max_excerpt_words'] ) ? intval( $instance['max_excerpt_words'] ) : '';
 		echo "<p>";
@@ -447,4 +460,3 @@ class Decent_Comments_Widget extends WP_Widget {
 
 Decent_Comments_Widget::init();
 register_widget( 'Decent_Comments_Widget' );
-?>

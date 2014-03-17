@@ -3,7 +3,7 @@ Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: 1.3.1
 License: GPLv3
 
@@ -108,6 +108,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.3.2 =
+* Added options to exclude comments from post authors.
+
 = 1.3.1 =
 * WordPress 3.8 compatibility checked
 
@@ -157,6 +160,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+* Added options to exclude comments from post authors.
 
 = 1.3.1 =
 * WordPress 3.8 compatibility checked

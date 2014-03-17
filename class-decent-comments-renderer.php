@@ -65,7 +65,9 @@ class Decent_Comments_Renderer {
 		'post_type'    => null,
 
 		'pingback'     => true,
-		'trackback'    => true
+		'trackback'    => true,
+
+		'exclude_post_author' => false
 	);
 	
 	/**
@@ -258,7 +260,11 @@ class Decent_Comments_Renderer {
 		if ( isset( $options['trackback'] ) ) {
 			$trackback = ( $options['trackback'] === 'false' && $options['pingback'] !== false );
 		}
-		
+
+		if ( isset( $options['exclude_post_author'] ) ) {
+			$exclude_post_author = $options['exclude_post_author'] === 'true' || $options['exclude_post_author'] === true;
+		}
+
 		// basic options: number, sort, comments must be approved
 		$comment_args = array(
 			'number'  => $number,
@@ -289,6 +295,9 @@ class Decent_Comments_Renderer {
 		}
 		if ( isset( $trackback ) ) {
 			$comment_args['trackback'] = $trackback;
+		}
+		if ( isset( $exclude_post_author ) ) {
+			$comment_args['exclude_post_author'] = $exclude_post_author;
 		}
 
 		require_once( dirname( __FILE__ ) . '/class-decent-comment.php' );

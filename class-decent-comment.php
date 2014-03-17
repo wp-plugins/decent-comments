@@ -93,7 +93,9 @@ class Decent_Comment {
 			'term_ids' => '',
 
 			'pingback' => true,
-			'trackback' => true
+			'trackback' => true,
+
+			'exclude_post_author' => false
 
 		);
 
@@ -211,10 +213,15 @@ class Decent_Comment {
 		}
 
 		$post_fields = array_filter( compact( array( 'post_author', 'post_name', 'post_parent', 'post_status', 'post_type', ) ) );
-		if ( ! empty( $post_fields ) ) {
+		if ( ! empty( $post_fields ) || $exclude_post_author ) {
 			$join = "JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID";
-			foreach( $post_fields as $field_name => $field_value ) {
-				$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field_name} = %s", $field_value );
+			if ( ! empty( $post_fields ) ) {
+				foreach( $post_fields as $field_name => $field_value ) {
+					$where .= $wpdb->prepare( " AND {$wpdb->posts}.{$field_name} = %s", $field_value );
+				}
+			}
+			if ( $exclude_post_author ) {
+				$where .= " AND $wpdb->comments.user_id != $wpdb->posts.post_author ";
 			}
 		}
 
