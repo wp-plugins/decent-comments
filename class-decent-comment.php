@@ -300,7 +300,14 @@ class Decent_Comment {
 	 * @return string
 	 */
 	function get_search_sql( $string, $cols ) {
-		$string = esc_sql( like_escape( $string ) );
+
+		global $wpdb;
+
+		if ( method_exists( $wpdb, 'esc_like' ) ) {
+			$string = esc_sql( $wpdb::esc_like( $string ) );
+		} else {
+			$string = esc_sql( like_escape( $string ) );
+		}
 
 		$searches = array();
 		foreach ( $cols as $col ) {
