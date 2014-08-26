@@ -304,7 +304,7 @@ class Decent_Comment {
 		global $wpdb;
 
 		if ( method_exists( $wpdb, 'esc_like' ) ) {
-			$string = esc_sql( $wpdb::esc_like( $string ) );
+			$string = esc_sql( $wpdb->esc_like( $string ) );
 		} else {
 			$string = esc_sql( like_escape( $string ) );
 		}

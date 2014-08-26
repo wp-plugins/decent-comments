@@ -109,6 +109,9 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.3.5 =
+* Fixed static call to class method.
+
 = 1.3.4 =
 * Changed use of deprecated like_escape, WordPress 4.0 compatible.
 
@@ -167,6 +170,9 @@ Translations are also welcome!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.3.5 =
+* Fixed a code issue.
 
 = 1.3.4 =
 * WordPress 4.0 compatible.
