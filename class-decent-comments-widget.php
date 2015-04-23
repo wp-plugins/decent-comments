@@ -105,7 +105,7 @@ class Decent_Comments_Widget extends WP_Widget {
 
 		extract( $args );
 
-		$title = apply_filters( 'widget_title', $instance['title'] );
+		$title = apply_filters( 'widget_title', isset( $instance['title'] ) ? $instance['title'] : '' );
 
 		$widget_id = $args['widget_id'];
 
@@ -355,21 +355,21 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 
 		// excerpt
-		$checked = ( ( ( !isset( $instance['excerpt'] ) && Decent_Comments_Renderer::$defaults['excerpt'] ) || ( $instance['excerpt'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['excerpt'] ) && Decent_Comments_Renderer::$defaults['excerpt'] ) || ( isset( $instance['excerpt'] ) && $instance['excerpt'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'excerpt' ) . '" />';
 		echo '<label class="title" title="' . __( "If checked, shows an excerpt of the comment. Otherwise the full text of the comment is displayed.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'excerpt' ) . '">' . __( 'Show comment excerpt', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// max_excerpt_words
-		$max_excerpt_words = isset( $instance['max_excerpt_words'] ) ? intval( $instance['max_excerpt_words'] ) : '';
+		$max_excerpt_words = !empty( $instance['max_excerpt_words'] ) ? intval( $instance['max_excerpt_words'] ) : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The maximum number of words shown in excerpts.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'max_excerpt_words' ) . '">' . __( 'Number of words in excerpts', DC_PLUGIN_DOMAIN ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'max_excerpt_words' ) . '" name="' . $this->get_field_name( 'max_excerpt_words' ) . '" type="text" value="' . esc_attr( $max_excerpt_words ) . '" />';
 		echo '</p>';
 
 		// max_excerpt_characters
-		$max_excerpt_characters = isset( $instance['max_excerpt_characters'] ) ? intval( $instance['max_excerpt_characters'] ) : '';
+		$max_excerpt_characters = !empty( $instance['max_excerpt_characters'] ) ? intval( $instance['max_excerpt_characters'] ) : '';
 		echo "<p>";
 		echo '<label class="title" title="' . __( "The maximum number of characters shown in excerpts.", DC_PLUGIN_DOMAIN ) .'" for="' .$this->get_field_id( 'max_excerpt_characters' ) . '">' . __( 'Number of characters in excerpts', DC_PLUGIN_DOMAIN ) . '</label>'; 
 		echo '<input class="widefat" id="' . $this->get_field_id( 'max_excerpt_characters' ) . '" name="' . $this->get_field_name( 'max_excerpt_characters' ) . '" type="text" value="' . esc_attr( $max_excerpt_characters ) . '" />';
@@ -383,28 +383,28 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 
 		// show_author
-		$checked = ( ( ( !isset( $instance['show_author'] ) && Decent_Comments_Renderer::$defaults['show_author'] ) || ( $instance['show_author'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['show_author'] ) && Decent_Comments_Renderer::$defaults['show_author'] ) || ( isset( $instance['show_author'] ) && $instance['show_author'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_author' ) . '" />';
 		echo '<label class="title" title="' . __( "Whether to show the author of each comment.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_author' ) . '">' . __( 'Show author', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// show_date
-		$checked = ( ( ( !isset( $instance['show_date'] ) && Decent_Comments_Renderer::$defaults['show_date'] ) || ( $instance['show_date'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['show_date'] ) && Decent_Comments_Renderer::$defaults['show_date'] ) || ( isset( $instance['show_date'] ) && $instance['show_date'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_date' ) . '" />';
 		echo '<label class="title" title="' . __( "Show the date and time when the comment was posted.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_date' ) . '">' . __( 'Show date', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// link_author
-		$checked = ( ( ( !isset( $instance['link_author'] ) && Decent_Comments_Renderer::$defaults['link_author'] ) || ( $instance['link_author'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['link_author'] ) && Decent_Comments_Renderer::$defaults['link_author'] ) || ( isset( $instance['link_author'] ) && $instance['link_author'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'link_author' ) . '" />';
 		echo '<label class="title" title="' . __( "Whether to link comment authors to their website.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'link_author' ) . '">' . __( 'Link authors', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// show_avatar
-		$checked = ( ( ( !isset( $instance['show_avatar'] ) && Decent_Comments_Renderer::$defaults['show_avatar'] ) || ( $instance['show_avatar'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['show_avatar'] ) && Decent_Comments_Renderer::$defaults['show_avatar'] ) || ( isset( $instance['show_avatar'] ) && $instance['show_avatar'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_avatar' ) . '" />';
 		echo '<label class="title" title="' . __( "Show the avatar of the author.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_avatar' ) . '">' . __( 'Show avatar', DC_PLUGIN_DOMAIN ) . '</label>';
@@ -418,14 +418,14 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 
 		// show_link
-		$checked = ( ( ( !isset( $instance['show_link'] ) && Decent_Comments_Renderer::$defaults['show_link'] ) || ( $instance['show_link'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['show_link'] ) && Decent_Comments_Renderer::$defaults['show_link'] ) || ( isset( $instance['show_link'] ) && $instance['show_link'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_link' ) . '" />';
 		echo '<label class="title" title="' . __( "Show a link to the post that the comment applies to.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_link' ) . '">' . __( 'Show link to post', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// show_comment
-		$checked = ( ( ( !isset( $instance['show_comment'] ) && Decent_Comments_Renderer::$defaults['show_comment'] ) || ( $instance['show_comment'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['show_comment'] ) && Decent_Comments_Renderer::$defaults['show_comment'] ) || ( isset( $instance['show_comment'] ) && $instance['show_comment'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_comment' ) . '" />';
 		echo '<label class="title" title="' . __( "Show an excerpt of the comment or the full comment.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_comment' ) . '">' . __( 'Show the comment', DC_PLUGIN_DOMAIN ) . '</label>';
@@ -456,14 +456,14 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '</p>';
 
 		// pingback
-		$checked = ( ( ( !isset( $instance['pingback'] ) && Decent_Comments_Renderer::$defaults['pingback'] ) || ( $instance['pingback'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['pingback'] ) && Decent_Comments_Renderer::$defaults['pingback'] ) || ( isset( $instance['pingback'] ) && $instance['pingback'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'pingback' ) . '" />';
 		echo '<label class="title" title="' . __( "Include pingbacks.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'pingback' ) . '">' . __( 'Pingbacks', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// trackback
-		$checked = ( ( ( !isset( $instance['trackback'] ) && Decent_Comments_Renderer::$defaults['trackback'] ) || ( $instance['trackback'] === true ) ) ? 'checked="checked"' : '' );
+		$checked = ( ( ( !isset( $instance['trackback'] ) && Decent_Comments_Renderer::$defaults['trackback'] ) || ( isset( $instance['trackback'] ) && $instance['trackback'] === true ) ) ? 'checked="checked"' : '' );
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'trackback' ) . '" />';
 		echo '<label class="title" title="' . __( "Include trackbacks.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'trackback' ) . '">' . __( 'Trackbacks', DC_PLUGIN_DOMAIN ) . '</label>';
