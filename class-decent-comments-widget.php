@@ -203,6 +203,9 @@ class Decent_Comments_Widget extends WP_Widget {
 		// show_author
 		$settings['show_author'] = !empty( $new_instance['show_author'] );
 
+		// show the comment date
+		$settings['show_date'] = !empty( $new_instance['show_date'] );
+
 		// link_author
 		$settings['link_author'] = !empty( $new_instance['link_author'] );
 
@@ -384,6 +387,13 @@ class Decent_Comments_Widget extends WP_Widget {
 		echo '<p>';
 		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_author' ) . '" />';
 		echo '<label class="title" title="' . __( "Whether to show the author of each comment.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_author' ) . '">' . __( 'Show author', DC_PLUGIN_DOMAIN ) . '</label>';
+		echo '</p>';
+
+		// show_date
+		$checked = ( ( ( !isset( $instance['show_date'] ) && Decent_Comments_Renderer::$defaults['show_date'] ) || ( $instance['show_date'] === true ) ) ? 'checked="checked"' : '' );
+		echo '<p>';
+		echo '<input type="checkbox" ' . $checked . ' value="1" name="' . $this->get_field_name( 'show_date' ) . '" />';
+		echo '<label class="title" title="' . __( "Show the date and time when the comment was posted.", DC_PLUGIN_DOMAIN ) .'" for="' . $this->get_field_id( 'show_date' ) . '">' . __( 'Show date', DC_PLUGIN_DOMAIN ) . '</label>';
 		echo '</p>';
 
 		// link_author
