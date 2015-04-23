@@ -2,7 +2,7 @@
 /**
  * decent-comments.php
  * 
- * Copyright (c) 2011, 2012 "kento" Karim Rahimpur www.itthinx.com
+ * Copyright (c) 2011 - 2015 "kento" Karim Rahimpur www.itthinx.com
  * 
  * This code is released under the GNU General Public License.
  * See COPYRIGHT.txt and LICENSE.txt.
@@ -21,7 +21,7 @@
  * Plugin Name: Decent Comments
  * Plugin URI: http://www.itthinx.com/plugins/decent-comments
  * Description: Provides configurable means to display comments that include author's avatars, author link, link to post and most importantly an excerpt of each comment. There are several options ... 
- * Version: 1.3.5
+ * Version: 1.3.6
  * Author: itthinx
  * Author URI: http://www.itthinx.com
  * Donate-Link: http://www.itthinx.com/plugins/decent-comments

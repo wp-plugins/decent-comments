@@ -2,9 +2,9 @@
 Contributors: itthinx
 Donate link: http://www.itthinx.com/plugins/decent-comments
 Tags: avatar, comment, comment API, comment excerpt, comment excerpts, comment widget, comment shortcode, comments, excerpt, excerpts, latest comments, recent comments, shortcode, shortcodes
-Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.3.5
+Requires at least: 4.0
+Tested up to: 4.2
+Stable tag: 1.3.6
 License: GPLv3
 
 Decent Comments shows what people say. Provides widgets, shortcodes and API to display comments including author avatars, links, comment excerpts.
@@ -109,6 +109,10 @@ Translations are also welcome!
 
 == Changelog ==
 
+= 1.3.6 =
+* Added the option to show date and time of comments.
+* Tested for WordPress 4.2.
+
 = 1.3.5 =
 * Fixed static call to class method.
 
@@ -171,54 +175,5 @@ Translations are also welcome!
 
 == Upgrade Notice ==
 
-= 1.3.5 =
-* Fixed a code issue.
-
-= 1.3.4 =
-* WordPress 4.0 compatible.
-
-= 1.3.3 =
-* Added the Portuguese translation.
-
-= 1.3.2 =
-* Added options to exclude comments from post authors.
-
-= 1.3.1 =
-* WordPress 3.8 compatibility checked
-
-= 1.3.0 =
-* Added Italian and Chinese translations and support for comment excerpts limited by the number of characters (useful for languages like Chinese where the word limit is not effective).
-
-= 1.2.0 =
-* Several improvements and now also supports showing comments by post type (shortcode and widget). WordPress 3.6 compatibility checked.
-
-= 1.1.5 =
-* Bugfix related to using {current} for comments based on taxonomies.
-
-= 1.1.4 =
-* WordPress 3.5 compatibility, new options to include or exclude Pingbacks and Trackbacks and bug fixes.
-
-= 1.1.3 =
-* Added German translation.
-
-= 1.1.2 =
-* Added option to restrict comments shown by post ID when using the shortcode.
-
-= 1.1.1 =
-* Added Lithuanian translation provided by Vincent G from [Host1Free](http://www.Host1Free.com)
-
-= 1.1.0 =
-If you want to display comments on posts in a specific category, this version will please you :)
-Also works for tags ... actually, it allows to choose terms from any taxonomy.
-
-= 1.0.3 =
-Please update, this release guards against shortcode interpretation in comments rendered.
-
-= 1.0.2 =
-Bugfix - please update 
-
-= 1.0.1 =
-Update if you get class not found errors
-
-= 1.0.0 =
-No need to upgrade yet.
+= 1.3.6 =
+* This release has been tested for WordPress 4.2 and also adds the option to show date and time of comments.
