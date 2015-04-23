@@ -52,6 +52,7 @@ class Decent_Comments_Renderer {
 		"order"        => "DESC",
 		"orderby"      => "comment_date_gmt",
 		"show_author"  => true,
+		"show_date"    => false,
 		"link_author"  => true,
 		"show_avatar"  => true,
 		"show_link"    => true,
@@ -328,6 +329,9 @@ class Decent_Comments_Renderer {
 			if ( isset( $options['show_author'] ) ) {
 				$show_author = ( $options['show_author'] !== 'false' && $options['show_author'] !== false );
 			}
+			if ( isset( $options['show_date'] ) ) {
+				$show_date = ( $options['show_date'] !== 'false' && $options['show_date'] !== false );
+			}
 			if ( isset( $options['link_author'] ) ) {
 				$link_author = ( $options['link_author'] !== 'false' && $options['link_author'] !== false );
 			}
@@ -371,6 +375,16 @@ class Decent_Comments_Renderer {
 						$output .= get_comment_author( $comment->comment_ID );
 					}
 					$output .= '</span>'; // .comment-author
+				}
+
+				if ( $show_date ) {
+					$output .= '<span class="comment-date">';
+					$output .= sprintf(
+						' %1$s at %2$s', // translators : the first argument is the date of the comment, the second is the time
+						mysql2date( get_option( 'date_format' ), $comment->comment_date ),
+						mysql2date( get_option( 'time_format' ), $comment->comment_date, true )
+					);
+					$output .= '</span>'; // .comment-date
 				}
 
 				if ( $show_link ) {
